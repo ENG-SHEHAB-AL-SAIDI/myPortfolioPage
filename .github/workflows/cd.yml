@@ -15,12 +15,12 @@ jobs:
 
     steps:
       - name: Checkout released version
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.event.release.tag_name || github.ref_name }}
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 24.14.0
           cache: npm
@@ -37,6 +37,7 @@ jobs:
           server: ${{ secrets.HELIOHOST_HOST }}
           username: ${{ secrets.HELIOHOST_USERNAME }}
           password: ${{ secrets.HELIOHOST_PASSWORD }}
+          port: ${{ secrets.HELIOHOST_PORT }}
           sftp_only: true
           local_path: './dist/*'
           remote_path: ${{ secrets.HELIOHOST_REMOTE_PATH }}
