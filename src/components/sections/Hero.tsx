@@ -4,14 +4,14 @@ import {
   Github,
   Linkedin,
   Mail,
-  Twitter,
-  Facebook,
-  Instagram,
   ArrowRight,
   GraduationCap,
 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function Hero() {
+  const { t, lang, isRTL } = useLanguage();
+
   const scrollToProjects = () => {
     document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -27,6 +27,7 @@ export function Hero() {
     "MySQL",
     "Firebase",
   ];
+
   const socialLinks = [
     {
       Icon: Github,
@@ -46,7 +47,6 @@ export function Hero() {
       id="start"
       className="relative min-h-screen pt-28 pb-20 flex flex-col justify-center overflow-hidden"
     >
-      {/* Animated background orbs */}
       <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
         <div
           className="orb-1 absolute top-1/4 left-[-10%] w-[500px] h-[500px] rounded-full opacity-20"
@@ -70,7 +70,6 @@ export function Hero() {
             animation: "float-orb 18s ease-in-out infinite",
           }}
         />
-        {/* Grid overlay */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -82,39 +81,38 @@ export function Hero() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        {/* Left Content */}
         <div className="lg:col-span-7 flex flex-col items-start z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm font-medium mb-8"
             >
-              <GraduationCap className="w-4 h-4" />
-              Computer Engineering Graduate · Ibb University · 82.56%
+              <GraduationCap className="w-4 h-4 shrink-0" />
+              {t("hero.badge")}
             </motion.div>
 
             <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.05] mb-4">
-              <span className="block text-foreground">SHEHAB</span>
-              <span className="gradient-text block">AL-SAIDI</span>
+              <span className="block text-foreground">
+                {lang === "ar" ? "شهاب" : "SHEHAB"}
+              </span>
+              <span className="gradient-text block">
+                {lang === "ar" ? "الصايدي" : "AL-SAIDI"}
+              </span>
             </h1>
             <h2 className="text-xl sm:text-2xl font-medium text-muted-foreground mb-6 flex items-center gap-3">
-              <span className="w-8 h-px bg-primary/60" />
-              Computer Engineer & App Developer
+              <span className="w-8 h-px bg-primary/60 shrink-0" />
+              {t("hero.subtitle")}
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed">
-              Experienced in full-stack development and mobile application
-              development, with a focus on cross-platform apps using Flutter,
-              and capable of designing and implementing AI models.
+              {t("hero.bio")}
             </p>
 
-            {/* Skill chips */}
             <div className="flex flex-wrap gap-2 mb-10 lg:w-3/4">
               {skills.map((skill, i) => (
                 <motion.span
@@ -135,16 +133,19 @@ export function Hero() {
                 onClick={scrollToProjects}
                 className="group neon-glow bg-primary hover:bg-primary/90 text-white px-8 rounded-full font-medium"
               >
-                View Projects
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                {t("hero.viewProjects")}
+                <ArrowRight
+                  className={`w-4 h-4 group-hover:translate-x-1 transition-transform ${isRTL ? "mr-2 rotate-180" : "ml-2"}`}
+                />
               </Button>
-
               <div className="flex items-center gap-3">
-                {socialLinks.map(({ Icon, href }, i) => (
+                {socialLinks.map(({ Icon, href, label }, i) => (
                   <a
                     key={i}
                     href={href}
                     target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
                     className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/10 transition-all duration-200"
                   >
                     <Icon className="w-4 h-4" />
@@ -155,7 +156,6 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Content */}
         <div className="lg:col-span-5 relative z-10">
           <motion.div
             initial={{ opacity: 0, x: 30 }}
@@ -163,18 +163,17 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="relative"
           >
-            {/* Stats cards */}
             <div className="grid grid-cols-2 gap-4 mb-6">
               {[
                 {
                   value: "3",
-                  label: "Projects Built",
+                  label: t("hero.projectsBuilt"),
                   color: "from-emerald-500/20 to-teal-500/10",
                   border: "border-emerald-500/20",
                 },
                 {
                   value: "82.56%",
-                  label: "University GPA",
+                  label: t("hero.universityGpa"),
                   color: "from-cyan-500/20 to-blue-500/10",
                   border: "border-cyan-500/20",
                 },
@@ -196,7 +195,6 @@ export function Hero() {
               ))}
             </div>
 
-            {/* Featured project card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -206,15 +204,14 @@ export function Hero() {
               <div className="flex items-center gap-3 mb-3">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                 <span className="text-xs font-semibold text-primary uppercase tracking-wider">
-                  Graduation Project
+                  {t("hero.graduation")}
                 </span>
               </div>
               <h3 className="text-lg font-bold mb-2 leading-snug">
-                Student Services System
+                {t("hero.projectTitle")}
               </h3>
               <p className="text-sm text-muted-foreground mb-4">
-                A full-featured university portal built with a team of 5,
-                streamlining student administration and academic workflows.
+                {t("hero.studentServicesDesc")}
               </p>
               <a
                 href="#projects"
@@ -224,9 +221,12 @@ export function Hero() {
                     .querySelector("#projects")
                     ?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="inline-flex items-center text-sm font-medium text-primary hover:underline underline-offset-4"
+                className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline underline-offset-4"
               >
-                See all projects <ArrowRight className="ml-1 w-4 h-4" />
+                {t("hero.seeAllProjects")}{" "}
+                <ArrowRight
+                  className={`w-4 h-4 ${isRTL ? "rotate-180" : ""}`}
+                />
               </a>
             </motion.div>
           </motion.div>

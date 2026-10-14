@@ -3,7 +3,6 @@ import { Footer } from "@/components/layout/Footer"
 import { Hero } from "@/components/sections/Hero"
 import { EducationAndSkills } from "@/components/sections/Work"
 import { Projects } from "@/components/sections/Projects"
-import { Articles } from "@/components/sections/Articles"
 
 export default function Home() {
   return (
@@ -14,7 +13,6 @@ export default function Home() {
         <Hero />
         <EducationAndSkills />
         <Projects />
-        {/* <Articles /> */}
       </main>
 
       <Footer />

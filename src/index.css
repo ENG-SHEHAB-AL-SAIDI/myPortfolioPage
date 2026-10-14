@@ -162,6 +162,11 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 
+  :root[dir="rtl"] body,
+  [dir="rtl"] {
+    font-family: 'Cairo', 'Inter', sans-serif;
+  }
+
   ::selection {
     background: hsl(158 84% 40% / 0.35);
   }
